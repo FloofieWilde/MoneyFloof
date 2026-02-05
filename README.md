@@ -10,8 +10,6 @@ Create a practical tool to track spending, estimate savings, and visualize month
 **Target audience:**  
 Anyone who wants to manage their expenses and online orders more efficiently.
 
----
-
 ## Tech Stack
 - **Backend:** PHP 8.2 with Slim 4  
 - **Frontend:** React + Styled Components  
