@@ -16,6 +16,11 @@ class UserController {
         return $response->withHeader('Content-Type', 'application/json');
     }
 
+    public function getAllByPage(Request $request, Response $response): Response {
+        $response->getBody()->write(json_encode($this->userService->getAllByPage((int)$args['page'])));
+        return $response->withHeader('Content-Type', 'application/json');
+    }
+
     public function getOne(Request $request, Response $response, array $args): Response {
         $user = $this->userService->getById((int)$args['id']);
         $response->getBody()->write(json_encode($user ?? ['error' => 'User not found']));

@@ -104,8 +104,38 @@ class DatabaseService {
         return $stmt->execute($params);
     }
 
-    public static function getLastInsertId(): string {
-        return self::getConnection()->lastInsertId();
+    public static function getAllByPage(string $table, int $page = 1, int $limit = 50): array
+    {
+        $page = max(1, $page);
+        $limit = max(1, $limit);
+        $offset = ($page - 1) * $limit;
+
+        // Total count
+        $total = (int) self::getConnection()
+            ->query("SELECT COUNT(*) FROM {$table}")
+            ->fetchColumn();
+
+        // Paginated data
+        $stmt = self::getConnection()->prepare("
+            SELECT *
+            FROM {$table}
+            ORDER BY id DESC
+            LIMIT :limit OFFSET :offset
+        ");
+
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return [
+            'data' => $stmt->fetchAll(PDO::FETCH_ASSOC),
+            'pagination' => [
+                'page' => $page,
+                'limit' => $limit,
+                'total' => $total,
+                'pages' => (int) ceil($total / $limit),
+            ],
+        ];
     }
     #endregion
 }
