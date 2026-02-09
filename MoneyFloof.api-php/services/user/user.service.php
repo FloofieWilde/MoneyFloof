@@ -3,6 +3,12 @@
 declare(strict_types=1);
 
 class UserService {
+    private PDO $db;
+
+    public function __construct(DatabaseService $dbService) {
+        $this->db = $dbService->getConnection();
+    }
+
     public function getAll(): array {
         // Mock data
         return [
