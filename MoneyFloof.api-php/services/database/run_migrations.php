@@ -10,7 +10,7 @@ $dotenv->load();
 $pdo = DatabaseService::getConnection();
 
 $pdo->exec("
-    CREATE TABLE IF NOT EXISTS migrations (
+    CREATE TABLE IF NOT EXISTS migrations_logs (
         id INT AUTO_INCREMENT PRIMARY KEY,
         migration VARCHAR(255) NOT NULL,
         applied_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -20,16 +20,16 @@ $pdo->exec("
 $migrationDir = __DIR__ . '/migrations/';
 $migrations = glob($migrationDir . '*.php');
 
-$applied = $pdo
-    ->query("SELECT migration FROM migrations")
-    ->fetchAll(PDO::FETCH_COLUMN);
+// $applied = $pdo
+//     ->query("SELECT migration FROM migrations_logs")
+//     ->fetchAll(PDO::FETCH_COLUMN);
 
 foreach ($migrations as $file) {
     $name = basename($file);
     // if (!in_array($name, $applied)) {
         echo "Applying $name...\n";
         require $file;
-        $stmt = $pdo->prepare("INSERT INTO migrations (migration) VALUES (?)");
+        $stmt = $pdo->prepare("INSERT INTO migrations_logs (migration) VALUES (?)");
         $stmt->execute([$name]);
     // }
 }

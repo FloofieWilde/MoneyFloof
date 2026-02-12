@@ -5,6 +5,7 @@ if (DatabaseService::tableExists('users')) {
         'password'      => 'CHAR(32) NOT NULL',
         'lastname'      => 'VARCHAR(50) NOT NULL',
         'firstname'     => 'VARCHAR(50) NOT NULL',
+        'avatar'        => 'VARCHAR(300)',
         'created_at'    => 'TIMESTAMP DEFAULT CURRENT_TIMESTAMP',
         'last_login'    => 'TIMESTAMP DEFAULT CURRENT_TIMESTAMP',
         'last_activity' => 'TIMESTAMP DEFAULT CURRENT_TIMESTAMP'
