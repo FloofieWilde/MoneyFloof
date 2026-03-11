@@ -37,5 +37,5 @@ By using, reading, deploying, modifying, or simply staring intensely at this rep
 - Coffee is love, coffee is life. No argue is necessary.
 - Support artists — if you enjoy art, commission an artist when you can.
 - Stay curious, stay creative, and above all: Remain fluffy. 🐾
-- 
+
 _No lawyers were harmed in the making of these terms._
